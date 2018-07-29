@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package bytecode;
+
+message Operation {
+    oneof op {
+        Push push = 1;
+        Permute permute = 2;
+
+        Commit commit = 3;
+        Recall recall = 4;
+    }
+}
+
+message Push {
+    int32 symbolIdx = 1;
+}
+
+message Permute {
+    int32 pop = 1;
+    repeated int32 push = 2;
+}
+
+message Group {
+    int32 count = 1;
+}
+
+message Ungroup {
+    int32 count = 1;
+}
+
+message Commit {}
+message Recall {
+    int32 index = 1;
+}

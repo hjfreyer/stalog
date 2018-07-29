@@ -1,0 +1,30 @@
+package parser
+
+type StalogAST Peg {
+}
+
+Module <-  (
+    Spacing
+    'package' Spacing Identifier
+    Definition*
+    EndOfFile
+)
+
+Definition <- (SymbolDef)
+
+SymbolDef <- 'symbol' Spacing SymbolName
+
+Identifier <- (SymbolName / DefName)
+SymbolName <- < [A-Z][[a-z0-9]]* > Spacing
+DefName <- < [a-z][[a-z0-9]]* > Spacing
+
+Space <- (WhiteSpace / Comment)
+Spacing <- Space*
+
+#Spacing <- WhiteSpace
+WhiteSpace <- [ \n\r\t]
+Comment <- '#' (!EndOfLine .)* EndOfLine
+
+
+EndOfFile <- !.
+EndOfLine <- '\n'
